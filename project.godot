@@ -1,0 +1,60 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "Asteroid",
+"language": "GDScript",
+"path": "res://Asteroid.gd"
+} ]
+_global_script_class_icons={
+"Asteroid": ""
+}
+
+[application]
+
+config/name="LD 52"
+run/main_scene="res://Main.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Game="*res://Game.gd"
+Flinger="*res://Flinger.gd"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=1280
+window/size/test_height=720
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[layer_names]
+
+2d_physics/layer_1="Asteroid"
+2d_physics/layer_2="Sun"
+2d_physics/layer_3="Planet"
+2d_physics/layer_4="Ships"
+2d_physics/layer_5="Aliens"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_clear_color=Color( 0.129412, 0.129412, 0.137255, 1 )
+environment/default_environment="res://default_env.tres"
