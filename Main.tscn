@@ -1,14 +1,88 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Sun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Asteroid.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
 [ext_resource path="res://Planet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Art/circle.png" type="Texture" id=5]
+[ext_resource path="res://Art/rings2.png" type="Texture" id=6]
+[ext_resource path="res://AsteroidSpawnPoint.tscn" type="PackedScene" id=7]
+[ext_resource path="res://AsteroidGroup.gd" type="Script" id=8]
+[ext_resource path="res://Theme/Theme.tres" type="Theme" id=9]
+[ext_resource path="res://Aimer.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ScoreHBox.gd" type="Script" id=11]
+[ext_resource path="res://PlanetGroup.gd" type="Script" id=12]
+[ext_resource path="res://GameTimeHBox.gd" type="Script" id=13]
+[ext_resource path="res://Theme/Font_200.tres" type="DynamicFont" id=14]
+[ext_resource path="res://GameOver.gd" type="Script" id=15]
+[ext_resource path="res://Theme/Font_100.tres" type="DynamicFont" id=16]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=27]
 resource_name = "Orbit"
-length = 30.0
+length = 120.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AsteroidGroup:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 120 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=28]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AsteroidGroup:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Orbit"
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "Orbit"
+length = 15.0
 loop = true
 step = 1.0
 tracks/0/type = "value"
@@ -18,13 +92,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 30 ),
+"times": PoolRealArray( 0, 15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 360.0 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=24]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -71,92 +145,695 @@ tracks/0/keys = {
 "values": [ -1.70755e-06 ]
 }
 
+[sub_resource type="Animation" id=25]
+resource_name = "Orbit"
+length = 25.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=26]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Orbit"
+length = 30.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 30 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Orbit"
+length = 40.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 40 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "Orbit"
+length = 42.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 42 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "Orbit"
+length = 47.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 47 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Orbit"
+length = 52.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 52 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Orbit"
+length = 69.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 69 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "OnGameOver"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.75 ),
+"transitions": PoolRealArray( 1, 2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ClickMask:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=30]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ClickMask:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="PivotNode" type="Node2D" parent="."]
+[node name="Aimer" parent="." instance=ExtResource( 10 )]
+unique_name_in_owner = true
+position = Vector2( 949, 710 )
+
+[node name="Rings" type="Sprite" parent="."]
+position = Vector2( 960, 540 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CelesitalObjects" type="Node2D" parent="."]
 position = Vector2( 960, 540 )
 
-[node name="Asteroid3" parent="PivotNode" instance=ExtResource( 2 )]
-position = Vector2( 175.393, -298.257 )
-scale = Vector2( 0.66, 0.66 )
+[node name="AsteroidGroup" type="Node2D" parent="CelesitalObjects"]
+unique_name_in_owner = true
+script = ExtResource( 8 )
+asteroidPacked = ExtResource( 2 )
+partetNodeForAsteroid = NodePath("../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PivotNode"]
-autoplay = "Orbit"
-anims/Orbit = SubResource( 1 )
-anims/RESET = SubResource( 2 )
+[node name="AsteroidSpawnPoint" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 301, -82 )
 
-[node name="Mercury" parent="PivotNode" instance=ExtResource( 4 )]
+[node name="AsteroidSpawnPoint2" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 328, -27 )
+
+[node name="AsteroidSpawnPoint3" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 325, 89 )
+
+[node name="AsteroidSpawnPoint4" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 307, 10 )
+
+[node name="AsteroidSpawnPoint5" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 280, 113 )
+
+[node name="AsteroidSpawnPoint6" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 291, 154 )
+
+[node name="AsteroidSpawnPoint7" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 225, 254 )
+
+[node name="AsteroidSpawnPoint8" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 231, 217 )
+
+[node name="AsteroidSpawnPoint9" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 186, 246 )
+
+[node name="AsteroidSpawnPoint10" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 155, 284 )
+
+[node name="AsteroidSpawnPoint11" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 96, 300 )
+
+[node name="AsteroidSpawnPoint12" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 31, 312 )
+
+[node name="AsteroidSpawnPoint13" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -37, 294 )
+
+[node name="AsteroidSpawnPoint14" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -114, 299 )
+
+[node name="AsteroidSpawnPoint15" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -266, 165 )
+
+[node name="AsteroidSpawnPoint16" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -165, 256 )
+
+[node name="AsteroidSpawnPoint17" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -307, 148 )
+
+[node name="AsteroidSpawnPoint18" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -313, 3 )
+
+[node name="AsteroidSpawnPoint19" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -305, -178 )
+
+[node name="AsteroidSpawnPoint20" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -328, -43 )
+
+[node name="AsteroidSpawnPoint21" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -252, -200 )
+
+[node name="AsteroidSpawnPoint22" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -227, -251 )
+
+[node name="AsteroidSpawnPoint23" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -86, -322 )
+
+[node name="AsteroidSpawnPoint24" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -148, -282 )
+
+[node name="AsteroidSpawnPoint25" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -36, -296 )
+
+[node name="AsteroidSpawnPoint26" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 82, -327 )
+
+[node name="AsteroidSpawnPoint27" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 108, -284 )
+
+[node name="AsteroidSpawnPoint28" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 174, -264 )
+
+[node name="AsteroidSpawnPoint29" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 222, -217 )
+
+[node name="AsteroidSpawnPoint30" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 273, -209 )
+
+[node name="AsteroidSpawnPoint31" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( -342, -123 )
+
+[node name="AsteroidSpawnPoint32" parent="CelesitalObjects/AsteroidGroup" instance=ExtResource( 7 )]
+position = Vector2( 158, -292 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects"]
+anims/Orbit = SubResource( 27 )
+anims/RESET = SubResource( 28 )
+
+[node name="PlanetGroup" type="Node2D" parent="CelesitalObjects"]
+script = ExtResource( 12 )
+
+[node name="MercuryGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Mercury" parent="CelesitalObjects/PlanetGroup/MercuryGroup" instance=ExtResource( 4 )]
 modulate = Color( 0.46, 0.2116, 0.2116, 1 )
-position = Vector2( 38.8674, -76.9501 )
+position = Vector2( 37, -75 )
 rotation = 2.10817
 scale = Vector2( 0.38, 0.38 )
 
-[node name="Venus" parent="PivotNode" instance=ExtResource( 4 )]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/MercuryGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[node name="VenusGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Venus" parent="CelesitalObjects/PlanetGroup/VenusGroup" instance=ExtResource( 4 )]
 modulate = Color( 0.337255, 0.482353, 0.47451, 1 )
-position = Vector2( 66.4913, -129.17 )
+position = Vector2( 66, -127 )
 rotation = 2.10817
 scale = Vector2( 0.95, 0.95 )
 
-[node name="Mars" parent="PivotNode" instance=ExtResource( 4 )]
-modulate = Color( 0.705882, 0.321569, 0.321569, 1 )
-position = Vector2( 139.543, -243.954 )
-rotation = 2.10817
-scale = Vector2( 0.53, 0.53 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/VenusGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 23 )
+anims/RESET = SubResource( 24 )
 
-[node name="Jupiter" parent="PivotNode" instance=ExtResource( 4 )]
-modulate = Color( 0.827451, 0.627451, 0.407843, 1 )
-position = Vector2( 233.088, -387.27 )
-rotation = 2.10817
-scale = Vector2( 2.5, 2.5 )
+[node name="EarthGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
 
-[node name="Saturn" parent="PivotNode" instance=ExtResource( 4 )]
-modulate = Color( 0.929412, 0.882353, 0.619608, 1 )
-position = Vector2( 294.131, -503.389 )
-rotation = 2.10817
-scale = Vector2( 2, 2 )
-
-[node name="Neptune" parent="PivotNode" instance=ExtResource( 4 )]
-modulate = Color( 0.415686, 0.32549, 0.431373, 1 )
-position = Vector2( 396.489, -681.032 )
-rotation = 2.10817
-scale = Vector2( 1.3, 1.3 )
-
-[node name="Uranus" parent="PivotNode" instance=ExtResource( 4 )]
-modulate = Color( 0.541176, 0.690196, 0.376471, 1 )
-position = Vector2( 344.278, -593.408 )
-rotation = 2.10817
-scale = Vector2( 1.3, 1.3 )
-
-[node name="DwarfPlanet" parent="PivotNode" instance=ExtResource( 4 )]
-modulate = Color( 0.721569, 0.709804, 0.72549, 1 )
-position = Vector2( 436.728, -758.329 )
-rotation = 2.10817
-scale = Vector2( 0.1, 0.1 )
-
-[node name="EarthGroup" type="Node2D" parent="PivotNode"]
-position = Vector2( 109.854, -194.129 )
-
-[node name="Earth" parent="PivotNode/EarthGroup" instance=ExtResource( 4 )]
+[node name="Earth" parent="CelesitalObjects/PlanetGroup/EarthGroup" instance=ExtResource( 4 )]
 modulate = Color( 0.294118, 0.501961, 0.792157, 1 )
 self_modulate = Color( 0.294118, 0.501961, 0.792157, 1 )
+position = Vector2( 207, -1.85072e-05 )
 rotation = 2.10817
-scale = Vector2( 1, 1 )
 
-[node name="MoonPivot" type="Node2D" parent="PivotNode/EarthGroup"]
-scale = Vector2( 1, 1 )
+[node name="MoonPivot" type="Node2D" parent="CelesitalObjects/PlanetGroup/EarthGroup"]
+position = Vector2( 207, 0 )
 
-[node name="Moon" type="Sprite" parent="PivotNode/EarthGroup/MoonPivot"]
+[node name="Moon" type="Sprite" parent="CelesitalObjects/PlanetGroup/EarthGroup/MoonPivot"]
 position = Vector2( 31.6738, 10.5264 )
 rotation = 2.10817
 scale = Vector2( 0.05, 0.05 )
 texture = ExtResource( 5 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PivotNode/EarthGroup"]
+[node name="MoonAnimPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/EarthGroup"]
 autoplay = "Orbit"
 anims/Orbit = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/EarthGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 25 )
+anims/RESET = SubResource( 26 )
+
+[node name="MarsGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Mars" parent="CelesitalObjects/PlanetGroup/MarsGroup" instance=ExtResource( 4 )]
+modulate = Color( 0.705882, 0.321569, 0.321569, 1 )
+position = Vector2( 136, -230 )
+rotation = 2.10817
+scale = Vector2( 0.53, 0.53 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/MarsGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 9 )
+anims/RESET = SubResource( 10 )
+
+[node name="JupiterGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Jupiter" parent="CelesitalObjects/PlanetGroup/JupiterGroup" instance=ExtResource( 4 )]
+modulate = Color( 0.827451, 0.627451, 0.407843, 1 )
+position = Vector2( 219, -362 )
+rotation = 2.10817
+scale = Vector2( 2.3, 2.3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/JupiterGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 11 )
+anims/RESET = SubResource( 12 )
+
+[node name="SaturnGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Saturn" parent="CelesitalObjects/PlanetGroup/SaturnGroup" instance=ExtResource( 4 )]
+modulate = Color( 0.929412, 0.882353, 0.619608, 1 )
+position = Vector2( 285, -467 )
+rotation = 2.10817
+scale = Vector2( 2, 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/SaturnGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 13 )
+anims/RESET = SubResource( 14 )
+
+[node name="UranusGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Uranus" parent="CelesitalObjects/PlanetGroup/UranusGroup" instance=ExtResource( 4 )]
+modulate = Color( 0.541176, 0.690196, 0.376471, 1 )
+position = Vector2( 344, -544 )
+rotation = 2.10817
+scale = Vector2( 1.3, 1.3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/UranusGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 17 )
+anims/RESET = SubResource( 18 )
+
+[node name="NetptuneGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Neptune" parent="CelesitalObjects/PlanetGroup/NetptuneGroup" instance=ExtResource( 4 )]
+modulate = Color( 0.415686, 0.32549, 0.431373, 1 )
+position = Vector2( 385, -627 )
+rotation = 2.10817
+scale = Vector2( 1.3, 1.3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/NetptuneGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 19 )
+anims/RESET = SubResource( 20 )
+
+[node name="PlutoGroup" type="Node2D" parent="CelesitalObjects/PlanetGroup"]
+
+[node name="Pluto" parent="CelesitalObjects/PlanetGroup/PlutoGroup" instance=ExtResource( 4 )]
+modulate = Color( 0.721569, 0.709804, 0.72549, 1 )
+position = Vector2( 438.042, -687.284 )
+rotation = 2.10817
+scale = Vector2( 0.1, 0.1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CelesitalObjects/PlanetGroup/PlutoGroup"]
+autoplay = "Orbit"
+anims/Orbit = SubResource( 21 )
+anims/RESET = SubResource( 22 )
+
 [node name="Sun" parent="." instance=ExtResource( 1 )]
 position = Vector2( 960, 540 )
 scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 960, 540 )
+current = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="UI Layer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI Layer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 9 )
+
+[node name="MarginContainer" type="MarginContainer" parent="UI Layer/Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -247.0
+margin_bottom = 103.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="GameTimeHBox" type="HBoxContainer" parent="UI Layer/Control/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 227.0
+margin_bottom = 83.0
+script = ExtResource( 13 )
+colors = [ Color( 0.541176, 0.690196, 0.376471, 1 ), Color( 0.929412, 0.882353, 0.619608, 1 ), Color( 0.705882, 0.321569, 0.321569, 1 ) ]
+
+[node name="TimeLabel" type="Label" parent="UI Layer/Control/MarginContainer/GameTimeHBox"]
+margin_right = 136.0
+margin_bottom = 63.0
+text = "Time:"
+
+[node name="TimeValue" type="Label" parent="UI Layer/Control/MarginContainer/GameTimeHBox"]
+unique_name_in_owner = true
+margin_left = 140.0
+margin_right = 207.0
+margin_bottom = 63.0
+text = "59"
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI Layer/Control"]
+margin_right = 287.0
+margin_bottom = 103.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="ScoreHBox" type="HBoxContainer" parent="UI Layer/Control/MarginContainer2"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 267.0
+margin_bottom = 83.0
+script = ExtResource( 11 )
+
+[node name="ScoreLabel" type="Label" parent="UI Layer/Control/MarginContainer2/ScoreHBox"]
+margin_right = 155.0
+margin_bottom = 63.0
+text = "Score:"
+
+[node name="ScoreValue" type="Label" parent="UI Layer/Control/MarginContainer2/ScoreHBox"]
+unique_name_in_owner = true
+margin_left = 159.0
+margin_right = 247.0
+margin_bottom = 63.0
+text = "100"
+
+[node name="Popups" type="CanvasLayer" parent="."]
+
+[node name="GameOver" type="Control" parent="Popups"]
+pause_mode = 2
+unique_name_in_owner = true
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 9 )
+script = ExtResource( 15 )
+
+[node name="ColorRect" type="ColorRect" parent="Popups/GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.721569, 0.709804, 0.72549, 0.215686 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popups/GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="GameOver" type="Label" parent="Popups/GameOver/VBoxContainer"]
+margin_top = 253.0
+margin_right = 1920.0
+margin_bottom = 502.0
+custom_fonts/font = ExtResource( 14 )
+text = "GAME OVER"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popups/GameOver/VBoxContainer"]
+margin_top = 552.0
+margin_right = 1920.0
+margin_bottom = 677.0
+alignment = 1
+
+[node name="FinalScoreLabel" type="Label" parent="Popups/GameOver/VBoxContainer/HBoxContainer"]
+margin_left = 567.0
+margin_right = 1144.0
+margin_bottom = 125.0
+custom_fonts/font = ExtResource( 16 )
+text = "Final Score:"
+
+[node name="Final Score" type="Label" parent="Popups/GameOver/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 1148.0
+margin_right = 1352.0
+margin_bottom = 125.0
+custom_fonts/font = ExtResource( 16 )
+text = "000"
+
+[node name="MarginContainer" type="MarginContainer" parent="Popups/GameOver/VBoxContainer"]
+margin_top = 727.0
+margin_right = 1920.0
+margin_bottom = 827.0
+custom_constants/margin_right = 400
+custom_constants/margin_left = 400
+
+[node name="PlayAgain" type="Button" parent="Popups/GameOver/VBoxContainer/MarginContainer"]
+margin_left = 400.0
+margin_right = 1520.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Play Again"
+
+[node name="ClickMask" type="ColorRect" parent="Popups/GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Popups/GameOver"]
+anims/OnGameOver = SubResource( 29 )
+anims/RESET = SubResource( 30 )
+
+[connection signal="button_down" from="Popups/GameOver/VBoxContainer/MarginContainer/PlayAgain" to="Popups/GameOver" method="_on_PlayAgain_button_down"]

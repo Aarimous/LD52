@@ -1,16 +1,12 @@
 extends Node2D
 
+export(int, 0, 20) var initialAsteroids = 5
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	Game.main = self
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	for _i in range(initialAsteroids):
+		$"%AsteroidGroup".spawnNewAsteroid()
+	SignalBus.emit_signal("startGame")
+		
+func togglePause(value):
+	get_tree().paused = value

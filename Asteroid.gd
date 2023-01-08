@@ -1,53 +1,80 @@
-extends Area2D
+extends RigidBody2D
 class_name Asteroid
+
+signal asteroidKillingItself
+signal asteroidFlung
+
+export var isMainMenu = false
+var parentNode
 
 var direction : Vector2 = Vector2.ZERO
 var speed : float = 0.0
 var velocity : Vector2 = speed * direction
 
-func _process(delta):
-	position += velocity * delta
-	speed = max(0.0, speed - Game.ASTEROID_FRICTION * delta)
-	velocity = speed * direction
+func init(_isMainMenu : bool, _parentNode):
+	isMainMenu = _isMainMenu
+	print(_parentNode)
+	parentNode = _parentNode
+	var randRoll
+	if isMainMenu == false:
+		randRoll = Game.rnGesus.randf_range(.75, 2)
+	else:
+		randRoll = 2
+	mass = randRoll
+	$"%SpritePivot".modulate.h = Game.rnGesus.randf_range(0,1.0)
+	$"%SpritePivot".scale = Vector2(randRoll,randRoll)
+	$"%CollisionPolygon2D".scale = Vector2(randRoll,randRoll)
+	angular_velocity = Game.rnGesus.randf_range(-69.0/42.0, 69.0/42.0)
+	return self
 
-func _ready():
-	print("Asteroid on ready")
 
-func _on_Asteroid_mouse_entered():
-	print("_on_Asteroid_mouse_entered")
-
-
-func _on_Asteroid_mouse_exited():
-	print("_on_Asteroid_mouse_exited")
+func onFling(_speed, _direction):
+	velocity = _speed * _direction
+	apply_central_impulse(velocity * Game.ASTEROID_IMPULS_SCALE)
 	
+	emit_signal("asteroidFlung", self)
 
-func setSpeed(_speed):
-	speed = _speed
-	velocity = speed * direction
-	
-func setDirection(_direction):
-	direction = _direction
-	velocity = speed * direction
-	
-	
 
-func _on_Asteroid_input_event(viewport, event, shape_idx):
+func _on_Asteroid_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if event.is_pressed() == true:
 				var pos = global_position
 				get_parent().remove_child(self)
-				Game.main.add_child(self)
+				parentNode.add_child(self)
 				position = pos
 				Flinger.startFlinging(self)
 				print("Mouse Button Click")
 
 
-func _on_Asteroid_area_entered(area):
-	if area.is_in_group("Sun"):
-		kill()
-	elif area.is_in_group("Planet"):
-		kill()
-
 func kill():
+	
+	emit_signal("asteroidKillingItself", self)
 	queue_free()
+
+
+func _on_Asteroid_body_entered(body):
+	var force = linear_velocity.length()
+	if isMainMenu == true:
+		if body.is_in_group("MainMenu"):
+			if force < Game.IMPACT_SAFE_LIMIT:
+				parentNode.startGame()
+				kill()
+			else:
+				parentNode.hitStartTooHard()	
+	else:
+		
+		if body.is_in_group("Sun"):
+			kill()
+		elif body.is_in_group("Planet"):
+			if force < Game.IMPACT_SAFE_LIMIT:
+				Game.scorePoints(1)
+			else:
+				Game.scorePoints(-1)
+				body.takeDamage(force - Game.IMPACT_SAFE_LIMIT)
+			kill()
+		elif body.is_in_group("Asteroid"):
+			if force > Game.IMPACT_SAFE_LIMIT:
+				body.kill()
+				kill()
+

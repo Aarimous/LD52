@@ -1,0 +1,177 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Theme/Font_200.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Asteroid.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Theme/Theme.tres" type="Theme" id=3]
+[ext_resource path="res://Aimer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://AsteroidGroup.gd" type="Script" id=5]
+[ext_resource path="res://AsteroidSpawnPoint.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Planet.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Menu.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 23.375, 584 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 23.375, 584 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1044, 44 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "FadeToDark"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "changeSecen"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Control:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Control:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Menu" type="Node2D"]
+script = ExtResource( 8 )
+
+[node name="Aimer" parent="." instance=ExtResource( 4 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -356.0
+mouse_filter = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+margin_top = 204.0
+margin_right = 1920.0
+margin_bottom = 453.0
+custom_fonts/font = ExtResource( 1 )
+text = "ASTEROID RUSH"
+align = 1
+
+[node name="By Author" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+margin_top = 457.0
+margin_right = 1920.0
+margin_bottom = 520.0
+text = "A LD52 Game By Aarimous"
+align = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -142.0
+margin_bottom = -13.0
+text = "Hit the Start Planet with the Asteroid to start the game. To apply thrust click and drag in the opposite direction for where you want the asteroid to go"
+align = 1
+autowrap = true
+
+[node name="AsteroidGroup" type="Node2D" parent="."]
+script = ExtResource( 5 )
+asteroidPacked = ExtResource( 2 )
+isMainMenu = true
+asteroidSpawnRate = 1.0
+partetNodeForAsteroid = NodePath("..")
+
+[node name="AsteroidSpawnPoint" parent="AsteroidGroup" instance=ExtResource( 6 )]
+position = Vector2( 360, 736 )
+
+[node name="Wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2( -14.75, 536 )
+shape = SubResource( 1 )
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2( 1936, 536 )
+shape = SubResource( 2 )
+
+[node name="Wall3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
+position = Vector2( 968, -36 )
+shape = SubResource( 3 )
+
+[node name="Wall4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
+position = Vector2( 952, 1120 )
+shape = SubResource( 3 )
+
+[node name="Planet" parent="." groups=["MainMenu"] instance=ExtResource( 7 )]
+modulate = Color( 0.541176, 0.690196, 0.376471, 1 )
+position = Vector2( 1184, 736 )
+scale = Vector2( 5, 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+anims/FadeToDark = SubResource( 4 )
+anims/RESET = SubResource( 5 )
